@@ -47,6 +47,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Touch Swipe Navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            // Swipe Left -> Next Slide
+            nextSlide();
+        }
+        if (touchEndX > touchStartX + 50) {
+            // Swipe Right -> Prev Slide
+            prevSlide();
+        }
+    }
+
     // Initialize
     updateSlide(currentSlide);
 });

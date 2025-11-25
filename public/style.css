@@ -330,16 +330,70 @@ button:hover {
     overflow: hidden;
 }
 
-.progress {
-    height: 100%;
-    background: var(--primary-color);
-    width: 0%;
-    transition: width 0.3s;
-}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .slide {
+        padding: 2rem 1rem;
+        overflow-y: auto;
+        /* Allow scrolling if content is too long */
+        justify-content: flex-start;
+        /* Start from top on mobile */
+    }
 
-/* Gradient Text Helper */
-.gradient-text {
-    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    p,
+    li,
+    .definition-text,
+    .mindset-list p {
+        font-size: 1.2rem;
+    }
+
+    .split-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .flow-diagram {
+        flex-direction: column;
+    }
+
+    .arrow {
+        transform: rotate(90deg);
+        /* Point down */
+        margin: 0.5rem 0;
+    }
+
+    .qr-container.large .qr-code {
+        width: 250px;
+        height: 250px;
+    }
+
+    .big-announcement {
+        font-size: 3.5rem;
+    }
+
+    .controls {
+        bottom: 10px;
+        padding: 5px 15px;
+    }
+
+    .progress-bar {
+        width: 100px;
+    }
+
+    /* Hide presenter info on small screens if needed, or adjust */
+    .presenter-info {
+        margin-top: 2rem;
+    }
 }
