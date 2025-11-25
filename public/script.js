@@ -1,29 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progress');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    function updateSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
             }
         });
-    }, observerOptions);
 
-    const fadeElements = document.querySelectorAll('.fade-in');
-    fadeElements.forEach(el => observer.observe(el));
+        // Update progress bar
+        const progress = ((index + 1) / totalSlides) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
+    function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+            currentSlide++;
+            updateSlide(currentSlide);
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateSlide(currentSlide);
+        }
+    }
+
+    // Event Listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+            nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+            prevSlide();
+        }
     });
+
+    // Initialize
+    updateSlide(currentSlide);
 });
